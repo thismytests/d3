@@ -1,29 +1,36 @@
 <template>
   <div>
     <h1>start</h1>
-    <div ref="d3-start"
-         class="d3-start"></div>
+    <ul ref="d3-start"
+        class="d3-start">
+      <li ref="d3-item"></li>
+      <li ref="d3-item"></li>
+      <li ref="d3-item"></li>
+
+    </ul>
   </div>
 </template>
 
 <script>
   import * as d3 from 'd3'
 
-  function settingD3(d3El) {
-    const chart = d3.select(d3El);
+  function settingD3(d3Els) {
+    const phones = ['iPhone 6', 'Samsung Galaxy S5', 'LG G4'];
 
-    chart.append('svg')
-      .append('rect')
-      .attr('width', 50)
-      .attr('height', 200)
-      .style('fill', 'red')
+    const chart = d3.selectAll(d3Els);
+
+    chart
+      .data(phones)
+      .text(function (d) {
+        return d
+      })
   }
 
   export default {
     name: 'HelloWorld',
     mounted() {
-      const d3El = this.$refs['d3-start'];
-      settingD3(d3El)
+      const d3Els = this.$refs['d3-start'].children;
+      settingD3(d3Els)
     },
     methods: {}
   }
