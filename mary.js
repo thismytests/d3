@@ -12,8 +12,17 @@
 class Company {
   employees = [];
 
+  toKnowChanges(data){
+    // if (this.secondHalf && this.secondHalf.currentCompany) {
+    //   this.secondHalf.currentCompany.updateStaffPersonaInfo(this.secondHalf)
+    // }
+    console.log(`data`, data.name);
+  }
+
   recruit(person) {
     person.currentCompany = this
+    person.registerNotification(this.toKnowChanges);
+
     this.employees.push(person);
   }
 
@@ -35,6 +44,7 @@ class Human {
   secondHalf = null;
   phoneNumber = null;
   currentCompany = null;
+  func = function(){};
 
   constructor(name) {
     this.name = name;
@@ -42,19 +52,17 @@ class Human {
 
   marry(secondHalf) {
     this.secondHalf = secondHalf;
-    this.updatesInFamily();
+    this.func(this);
+    this.secondHalf.func(this);
   }
 
   buyPhone(phoneNumber) {
     this.phoneNumber = phoneNumber
-    this.updatesInFamily()
+    this.func(this);
   }
 
-
-  updatesInFamily() {
-    if (this.secondHalf && this.secondHalf.currentCompany) {
-      this.secondHalf.currentCompany.updateStaffPersonaInfo(this.secondHalf)
-    }
+  registerNotification(func){
+    this.func = func
   }
 }
 
